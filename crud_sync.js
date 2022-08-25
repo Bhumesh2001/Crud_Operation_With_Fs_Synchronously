@@ -9,7 +9,7 @@ while(true){
             if(password5.length == "8"){
                 return password5
             }else{
-                console.log("your password shoud be 8 charecter and there shoud be special charecter add.");     
+                console.log("your password shoud be 8 charecter and there shoud be special charecter add.");   
                 return passwd3()
             }
         }
@@ -22,61 +22,61 @@ while(true){
                 return email()
             }
         }
+        let mobaile_unique = function(data){
+            let phone_no = prompt("Enter your mobaile number:- ")
+            if(phone_no.length == "10"){
+                let parse_info = JSON.parse(data);
+                let keys = [];
+                for(let data1 in parse_info){
+                    keys.push(data1)
+                }
+                if(!keys.includes(phone_no)){
+                    return phone_no
+                }else{
+                    console.log('\nThis mobaile number allready exist\nPlease enter new mobaile number\n');
+                    return mobaile_unique()
+                }
+            }else{
+                console.log('Please enter valid mo.number');
+                mobaile_unique()
+            }
+        }
         function create(){
-            if(!fs.existsSync('./node.js/crud1.json')){
-                function recall(){
-                    const mobaile = prompt('Enter your mobaile number:-')
+            if(!fs.existsSync('./node/crud1.json')){
+                function recall12(){
+                    const mobaile = prompt("Enter your mobaile number:- ")
                     if(mobaile.length == "10"){
                         dict[mobaile] = {'userName':prompt('Enter your userName:-'),'Password':passwd3(),
                         'firstName':prompt('Enter your firstname:- '),'lastName':prompt('Enter your lastname:- '),
                         'emailAddress':email()}
-                        fs.writeFileSync('./node.js/crud1.json',JSON.stringify(dict,null,4))
+                        fs.writeFileSync('./node/crud1.json',JSON.stringify(dict,null,4))
                         console.log('your account created sucessfully....');
                     }else{
-                        console.log('Please enter valid mo.number');
-                        recall()
+                        console.log('Please enter valid mobaile number');
+                        recall12()
                     }
                 }
-                recall()
+                recall12()
             }else{
                 let recall2 = ()=>{
-                    let read = fs.readFileSync("./node.js/crud1.json",'utf-8')
-                    if(read == ""){
-                        const mobaile = prompt('Enter your mobaile number:-')
-                        if(mobaile.length == "10"){
-                            dict[mobaile] = {'userName':prompt('Enter your userName:-'),'Password':passwd3(),
-                            'firstName':prompt('Enter your firstname:- '),'lastName':prompt('Enter your lastname:- '),
-                            'emailAddress':email()}
-                            fs.writeFileSync('./node.js/crud1.json',JSON.stringify(dict,null,4))
-                            console.log('your account created sucessfully....');
-                        }else{
-                            console.log('Please enter valid mo.number');
-                            recall2()
-                        }
-                    }else{
-                        function recall3(){
-                            let mobaile1 = prompt("Enter your mobaile number:- ")
-                            if(mobaile1.length == "10"){
-                                let read = fs.readFileSync("./node.js/crud1.json",'utf-8')
-                                let parse = JSON.parse(read)
-                                parse[mobaile1] = {'userName':prompt('Enter your userName:-'),'Password':passwd3(),
-                                'firstName':prompt('Enter your firstname:- '),'lastName':prompt('Enter your lastname:- '),
-                                'emailAddress':email()}
-                                fs.writeFileSync('./node.js/crud1.json',JSON.stringify(parse,null,4))
-                                console.log('your account created sucessfully....');
-                            }else{
-                                console.log('Please enter valid mo.number');
-                                recall3()
-                            }
-                        }
-                        recall3()
+                    var read = fs.readFileSync("./node/crud1.json",'utf-8')
+                    if(read != ""){
+                        var read_data = fs.readFileSync("./node/crud1.json",'utf-8')
+                        var mobaile1 =  mobaile_unique(read_data)
+                        let read = fs.readFileSync("./node/crud1.json",'utf-8')
+                        let parse = JSON.parse(read_data)
+                        parse[mobaile1] = {'userName':prompt('Enter your userName:-'),'Password':passwd3(),
+                        'firstName':prompt('Enter your firstname:- '),'lastName':prompt('Enter your lastname:- '),
+                        'emailAddress':email()}
+                        fs.writeFileSync('./node/crud1.json',JSON.stringify(parse,null,4))
+                        console.log('your account created sucessfully....');
                     }
                 }
                 recall2()
             }
         }
         function read(){
-            let read1 = fs.readFileSync("./node.js/crud1.json",'utf-8')
+            let read1 = fs.readFileSync("./node/crud1.json",'utf-8')
             let parse2 = JSON.parse(read1)
             let phone = prompt('which mobaile number of data do you want to read ?')
             if(phone.length == "10"){
@@ -91,13 +91,13 @@ while(true){
             }
         }
         function update(){
-            let read2 = fs.readFileSync("./node.js/crud1.json",'utf-8')
+            let read2 = fs.readFileSync("./node/crud1.json",'utf-8')
             let parse3 = JSON.parse(read2)
             let mo_update = prompt('which mobaile number of data do you want to update:-')
             if(mo_update.length == "10"){
                 if(mo_update in parse3){
                     let data_solve = (parse3,msg)=>{
-                        fs.writeFileSync('./node.js/crud1.json',JSON.stringify(parse3,null,4))
+                        fs.writeFileSync('./node/crud1.json',JSON.stringify(parse3,null,4))
                         console.log(msg);
                     }
                     console.log('What do you want to update ?');
@@ -142,20 +142,20 @@ while(true){
             }
         }
         function delete1(){
-            let read4 = fs.readFileSync("./node.js/crud1.json",'utf-8')
+            let read4 = fs.readFileSync("./node/crud1.json",'utf-8')
             let parse5 = JSON.parse(read4)
             let mo_update1 = prompt('which mobaile number of data do you want to delete:-')
             if(mo_update1.length == "10"){
                 if(mo_update1 in parse5){
                     const data_solve1 = function(parse5,message){
-                        fs.writeFileSync('./node.js/crud1.json',JSON.stringify(parse5,null,4))
+                        fs.writeFileSync('./node/crud1.json',JSON.stringify(parse5,null,4))
                         console.log(message);
                     }
                     let array = []
                     for(keys in parse5[mo_update1]){
                         array.push(keys)
                     }
-                    console.log('What do you want to update ?');
+                    console.log('What do you want to delete ?');
                     console.log('  1.All data clear\n  2.userName\n  3.password\n  4.firstName\n  5.lastName\n  6.emailAddress');
                     let choice = parseInt(prompt('Enter your choice:-'))
                     if(choice == 1){
@@ -223,7 +223,6 @@ while(true){
         }else if(user_choice == 5){
             break
         }
-
     }catch(error){
         console.log('Sorry your mobaile number does not exist');
     }
